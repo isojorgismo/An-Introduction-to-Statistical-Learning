@@ -14,12 +14,192 @@
 
 \vspace{1em}
 
-\begin{exercise}[Chapter 1, Exercise 1]
-% Enunciado del ejercicio (si decides incluirlo)
+\subsection*{\color{codeblue}Conceptual}
+\begin{exercise}
+For each of parts (a) through (d), indicate whether we would generally expect the performance of a flexible statistical learning method to be better or worse than an inflexible method. Justify your answer.
+\begin{enumerate}
+    \item[(a)] The sample size $n$ is extremely large, and the number of predictors $p$ is small.
+    \item[(b)] The number of predictors $p$ is extremely large, and the number of observations $n$ is small.
+    \item[(c)] The relationship between the predictors and response is highly non-linear.
+    \item[(d)] The variance of the error terms, i.e. $\sigma^{2}=Var(\epsilon)$, is extremely high.
+\end{enumerate}
 \end{exercise}
 
-\begin{solution}
-Solution.
-\end{solution}
+\begin{exercise}
+Explain whether each scenario is a classification or regression problem, and indicate whether we are most interested in inference or prediction. Finally, provide $n$ and $p$.
+\begin{enumerate}
+    \item[(a)] We collect a set of data on the top 500 firms in the US. For each firm we record profit, number of employees, industry and the CEO salary. We are interested in understanding which factors affect CEO salary.
+    \item[(b)] We are considering launching a new product and wish to know whether it will be a success or a failure. We collect data on 20 similar products that were previously launched. For each product we have recorded whether it was a success or failure, price charged for the product, marketing budget, competition price, and ten other variables.
+    \item[(c)] We are interested in predicting the \% change in the USD/Euro exchange rate in relation to the weekly changes in the world stock markets. Hence we collect weekly data for all of 2012. For each week we record the \% change in the USD/Euro, the \% change in the US market, the \% change in the British market, and the \% change in the German market.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+We now revisit the bias-variance decomposition.
+\begin{enumerate}
+    \item[(a)] Provide a sketch of typical (squared) bias, variance, training error, test error, and Bayes (or irreducible) error curves, on a single plot, as we go from less flexible statistical learning methods towards more flexible approaches. The $x$-axis should represent the amount of flexibility in the method, and the $y$-axis should represent the values for each curve. There should be five curves. Make sure to label each one.
+    \item[(b)] Explain why each of the five curves has the shape displayed in part (a).
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+You will now think of some real-life applications for statistical learning.
+\begin{enumerate}
+    \item[(a)] Describe three real-life applications in which classification might be useful. Describe the response, as well as the predictors. Is the goal of each application inference or prediction? Explain your answer.
+    \item[(b)] Describe three real-life applications in which regression might be useful. Describe the response, as well as the predictors. Is the goal of each application inference or prediction? Explain your answer.
+    \item[(c)] Describe three real-life applications in which cluster analysis might be useful.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+What are the advantages and disadvantages of a very flexible (versus a less flexible) approach for regression or classification? Under what circumstances might a more flexible approach be preferred to a less flexible approach? When might a less flexible approach be preferred?
+\end{exercise}
+
+\begin{exercise}
+Describe the differences between a parametric and a non-parametric statistical learning approach. What are the advantages of a parametric approach to regression or classification (as opposed to a non-parametric approach)? What are its disadvantages?
+\end{exercise}
+
+\begin{exercise}
+The table below provides a training data set containing six observations, three predictors, and one qualitative response variable.
+\begin{center}
+\begin{tabular}{c|rrrl}
+\hline
+Obs. & $X_{1}$ & $X_{2}$ & $X_{3}$ & $Y$ \\
+\hline
+1 & 0 & 3 & 0 & Red \\
+2 & 2 & 0 & 0 & Red \\
+3 & 0 & 1 & 3 & Red \\
+4 & 0 & 1 & 2 & Green \\
+5 & -1 & 0 & 1 & Green \\
+6 & 1 & 1 & 1 & Red \\
+\hline
+\end{tabular}
+\end{center}
+Suppose we wish to use this data set to make a prediction for $Y$ when $X_{1}=X_{2}=X_{3}=0$ using $K$-nearest neighbors.
+\begin{enumerate}
+    \item[(a)] Compute the Euclidean distance between each observation and the test point, $X_{1}=X_{2}=X_{3}=0$.
+    \item[(b)] What is our prediction with $K=1$? Why?
+    \item[(c)] What is our prediction with $K=3$? Why?
+    \item[(d)] If the Bayes decision boundary in this problem is highly non-linear, then would we expect the best value for $K$ to be large or small? Why?
+\end{enumerate}
+\end{exercise}
+
+\subsection*{\color{codeblue}Applied}
+
+\begin{exercise}
+This exercise relates to the \rcode{College} data set, which can be found in the file \rcode{College.csv} on the book website. It contains a number of variables for 777 different universities and colleges in the US. The variables are
+
+\begin{itemize}
+    \item \rcode{Private}: Public/private indicator
+    \item \rcode{Apps}: Number of applications received
+    \item \rcode{Accept}: Number of applicants accepted
+    \item \rcode{Enroll}: Number of new students enrolled
+    \item \rcode{Top10perc}: New students from top 10\% of high school class
+    \item \rcode{Top25perc}: New students from top 25\% of high school class
+    \item \rcode{F.Undergrad}: Number of full-time undergraduates
+    \item \rcode{P.Undergrad}: Number of part-time undergraduates
+    \item \rcode{Outstate}: Out-of-state tuition
+    \item \rcode{Room.Board}: Room and board costs
+    \item \rcode{Books}: Estimated book costs
+    \item \rcode{Personal}: Estimated personal spending
+    \item \rcode{PhD}: Percent of faculty with Ph.D.'s
+    \item \rcode{Terminal}: Percent of faculty with terminal degree
+    \item \rcode{S.F.Ratio}: Student/faculty ratio
+    \item \rcode{perc.alumni}: Percent of alumni who donate
+    \item \rcode{Expend}: Instructional expenditure per student
+    \item \rcode{Grad.Rate}: Graduation rate
+\end{itemize}
+
+Before reading the data into \rcode{R}, it can be viewed in Excel or a text editor.
+
+\begin{enumerate}
+    \item[(a)] Use the \rcode{read.csv()} function to read the data into \rcode{R}. Call the loaded data \rcode{college}. Make sure that you have the directory set to the correct location for the data.
+    
+    \item[(b)] Look at the data using the \rcode{View()} function. You should notice that the first column is just the name of each university. We don't really want \rcode{R} to treat this as data. However, it may be handy to have these names for later. Try the following commands:
+
+\begin{lstlisting}
+> rownames(college) <- college[, 1]
+> View(college)
+\end{lstlisting}
+
+    You should see that there is now a \rcode{row.names} column with the name of each university recorded. This means that \rcode{R} has given each row a name corresponding to the appropriate university. \rcode{R} will not try to perform calculations on the row names. However, we still need to eliminate the first column in the data where the names are stored. Try
+
+\begin{lstlisting}
+> college <- college[, -1]
+> View(college)
+\end{lstlisting}
+
+    Now you should see that the first data column is \rcode{Private}. Note that another column labeled \rcode{row.names} now appears before the \rcode{Private} column. However, this is not a data column but rather the name that \rcode{R} is giving to each row.
+
+    \item[(c)] 
+    \begin{enumerate}
+        \item[i.] Use the \rcode{summary()} function to produce a numerical summary of the variables in the data set.
+        
+        \item[ii.] Use the \rcode{pairs()} function to produce a scatterplot matrix of the first ten columns or variables of the data. Recall that you can reference the first ten columns of a matrix \rcode{A} using \rcode{A[,1:10]}.
+        
+        \item[iii.] Use the \rcode{plot()} function to produce side-by-side boxplots of \rcode{Outstate} versus \rcode{Private}.
+        
+        \item[iv.] Create a new qualitative variable, called \rcode{Elite}, by binning the \rcode{Top10perc} variable. We are going to divide universities into two groups based on whether or not the proportion of students coming from the top 10\% of their high school classes exceeds 50\%.
+
+\begin{lstlisting}
+> Elite <- rep("No", nrow(college))
+> Elite[college$Top10perc > 50] <- "Yes"
+> Elite <- as.factor(Elite)
+> college <- data.frame(college, Elite)
+\end{lstlisting}
+
+        Use the \rcode{summary()} function to see how many elite universities there are. Now use the \rcode{plot()} function to produce side-by-side boxplots of \rcode{Outstate} versus \rcode{Elite}.
+        
+        \item[v.] Use the \rcode{hist()} function to produce some histograms with differing numbers of bins for a few of the quantitative variables. You may find the command \rcode{par(mfrow = c(2, 2))} useful: it will divide the print window into four regions so that four plots can be made simultaneously. Modifying the arguments to this function will divide the screen in other ways.
+        
+        \item[vi.] Continue exploring the data, and provide a brief summary of what you discover.
+    \end{enumerate}
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+This exercise involves the \rcode{Auto} data set studied in the lab. Make sure that the missing values have been removed from the data.
+\begin{enumerate}
+    \item[(a)] Which of the predictors are quantitative, and which are qualitative?
+    \item[(b)] What is the range of each quantitative predictor? You can answer this using the \rcode{range()} function.
+    \item[(c)] What is the mean and standard deviation of each quantitative predictor?
+    \item[(d)] Now remove the 10th through 85th observations. What is the range, mean, and standard deviation of each predictor in the subset of the data that remains?
+    \item[(e)] Using the full data set, investigate the predictors graphically, using scatterplots or other tools of your choice. Create some plots highlighting the relationships among the predictors. Comment on your findings.
+    \item[(f)] Suppose that we wish to predict gas mileage (\rcode{mpg}) on the basis of the other variables. Do your plots suggest that any of the other variables might be useful in predicting \rcode{mpg}? Justify your answer.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+This exercise involves the \rcode{Boston} housing data set.
+\begin{enumerate}
+    \item[(a)] To begin, load in the \rcode{Boston} data set. The \rcode{Boston} data set is part of the \rcode{ISLR2} library.
+\begin{lstlisting}
+> library(ISLR2)
+\end{lstlisting}
+    Now the data set is contained in the object \rcode{Boston}.
+\begin{lstlisting}
+> Boston
+\end{lstlisting}
+    Read about the data set:
+\begin{lstlisting}
+> ?Boston
+\end{lstlisting}
+    How many rows are in this data set? How many columns? What do the rows and columns represent?
+    
+    \item[(b)] Make some pairwise scatterplots of the predictors (columns) in this data set. Describe your findings.
+    
+    \item[(c)] Are any of the predictors associated with per capita crime rate? If so, explain the relationship.
+    
+    \item[(d)] Do any of the census tracts of Boston appear to have particularly high crime rates? Tax rates? Pupil-teacher ratios? Comment on the range of each predictor.
+    
+    \item[(e)] How many of the census tracts in this data set bound the Charles river?
+    
+    \item[(f)] What is the median pupil-teacher ratio among the towns in this data set?
+    
+    \item[(g)] Which census tract of Boston has lowest median value of owner-occupied homes? What are the values of the other predictors for that census tract, and how do those values compare to the overall ranges for those predictors? Comment on your findings.
+    
+    \item[(h)] In this data set, how many of the census tracts average more than seven rooms per dwelling? More than eight rooms per dwelling? Comment on the census tracts that average more than eight rooms per dwelling.
+\end{enumerate}
+\end{exercise}
 
 \end{document}
