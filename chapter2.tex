@@ -9,11 +9,56 @@
     {\large Statistical Learning} \\[0.5em]
     {\BookAuthors} \\ 
     {\BookEdition} \\[0.5em]
-    \textit{Prepared by \SolutionAuthor}
+    \textit{Prepared by} \SolutionAuthor
 \end{center}
 
 \vspace{1em}
 
+This chapter serves as a starting point for statistical learning theory. We begin by framing the problem of estimating a function $f$. But, what does this function typically represent and why we are interested in estimating its form?
+
+Suppose we have a real-world problem. For example, a company wants to determine if the advertising budget they typically allocate is truly necessary to increase sales, or if they can minimize the budget without negatively affecting their market performance.  
+
+Furthermore, suppose that advertising is divided into three media: TV, radio, and newspaper. Consequently, the amount of money spent on each medium can be considered a "feature." Our objective is to analyze the relationship between these features and the company's sales.
+
+Formally, we let:
+\begin{itemize}
+\item $X_1$: Budget for TV,
+\item $X_2$: Budget for Radio,
+\item $X_3$: Budget for Newspaper.
+\end{itemize}
+These are our input variables (also known as predictors or independent variables). We denote the total sales as $Y$, our output variable (or response/dependent variable).We assume there is a functional relationship:
+$$Y = f(X) + \epsilon$$
+where $X = (X_1, X_2, X_3)$ and $\epsilon$ represents the random error term, which is independent of $X$ and has mean zero.
+
+\bigskip
+
+There are two main reasons for obtain an estimation of $f$: prediction and inference. 
+
+{\color{codeblue}Prediction.} In a setting where we have a finite set of observations for $X_1, X_2, \dots, X_p$, we use these as a training set to help us estimate the function $f$. While our estimate $\hat{f}$ may perform well on the training data, our real goal is to predict $Y$ for new observations of $X$ that were not part of that set.
+
+For instance, the book mentions a medical scenario where the output variable is the adverse risk a patient faces when being administered a specific drug dose. Using blood samples from previous patients as a training set, we can predict the risk level for a new patient. In this context, we are primarily concerned with the accuracy of our prediction $\hat{Y}$, and we might be satisfied with treating $\hat{f}$ as a 'black box', provided it yields precise results.
+
+We are not just interested in how $\hat{f}$ performs on the training data, but in its generalization error. The accuracy of our prediction $\hat{Y}$ depends on two quantities:
+\begin{enumerate}
+\item Reducible Error: Which we can minimize by choosing a better statistical learning method for $\hat{f}$.
+\item Irreducible Error ($\epsilon$): Which is the noise inherent in the system and cannot be predicted using $X$.$$E(Y - \hat{Y})^2 = [f(X) - \hat{f}(X)]^2 + Var(\epsilon)$$
+\end{enumerate}
+
+{\color{codeblue} Inference.} In many contexts, our primary goal is not just predicting $Y$, but understanding the structural relationship between the inputs $X$ and the output $Y$. Here, we cannot treat $\hat{f}$ as a black box; we must be able to inspect its form. We model for inference when we need to answer questions such as: Which specific features significantly impact $Y$? Is the effect of a variable positive or negative? And structurally, is the mapping between $X$ and $Y$ simple (like a linear hyperplane) or highly non-linear?
+
+\bigskip
+
+To approximate this unknown function, we rely on a training set of $n$ observed data points: $\{(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)\}$. The mathematical objective is to construct an estimator $\hat{f}$ such that $Y \approx \hat{f}(X)$. When choosing a statistical learning method, we face a fundamental inverse relationship between a model's flexibility and its interpretability.
+\begin{itemize}\item \textbf{Inflexible (Restrictive) Models:} Methods like linear regression span a very restricted function space. While they might struggle to capture complex forms, they are highly interpretable. If our goal is inference, these models allow us to clearly understand exactly how each predictor $X_j$ affects the response $Y$.
+\item \textbf{Flexible Models:} Methods like Deep Learning or Support Vector Machines can generate highly complex, non-linear mappings. However, this comes at the cost of interpretability—the model effectively becomes a black box.
+\end{itemize}
+
+{\color{codeblue}Counter-intuitive reality.} One might assume that greater flexibility always yields better predictions. However, this is false. Highly flexible models are notoriously prone to overfitting. By forcing the model to follow the training points too closely, it ends up memorizing the random noise ($\epsilon$) rather than the true underlying signal, leading to poor generalization on unseen data. Sometimes, a simpler, more rigid model actually predicts better.
+
+
+
+\newpage
+\section*{Exercises}
 \subsection*{\color{codeblue}Conceptual}
 \begin{exercise}
 For each of parts (a) through (d), indicate whether we would generally expect the performance of a flexible statistical learning method to be better or worse than an inflexible method. Justify your answer.
@@ -24,6 +69,10 @@ For each of parts (a) through (d), indicate whether we would generally expect th
     \item[(d)] The variance of the error terms, i.e. $\sigma^{2}=Var(\epsilon)$, is extremely high.
 \end{enumerate}
 \end{exercise}
+
+\begin{solution}
+    
+\end{solution}
 
 \begin{exercise}
 Explain whether each scenario is a classification or regression problem, and indicate whether we are most interested in inference or prediction. Finally, provide $n$ and $p$.
