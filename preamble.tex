@@ -31,15 +31,15 @@
 \allowdisplaybreaks
 
 
-\newcommand{\BookTitle}{Introduction to Mathematical Statistics}
+\newcommand{\BookTitle}{Introduction to Statistical Learning}
 \newcommand{\BookAuthors}{Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani}
 \newcommand{\BookEdition}{Second Edition}
 \newcommand{\SolutionAuthor}{Jorge Alberto Cañas Palomeque}
 
 \newcommand{\SolutionSeries}{Solutions to exercises from \BookTitle}
 
-
-\newtheorem*{exercise}{Exercise}
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}
 \newtheorem*{solution}{Solution}
 
 \newcommand{\R}{\mathbb{R}}
@@ -52,3 +52,36 @@
 \renewcommand\qedsymbol{$\blacksquare$}
 
 \allowdisplaybreaks
+
+\usepackage{xcolor}
+\usepackage{listings}
+
+% Definición de colores extraídos del libro
+\definecolor{codebg}{HTML}{FFF4E6}       % Fondo color crema
+\definecolor{codeorange}{HTML}{B55D18}   % Naranja/Café para prompt y texto en línea
+\definecolor{codeblue}{HTML}{3B82F6}     % Azul para funciones
+\definecolor{codegray}{HTML}{7A7A7A}     % Gris para comentarios
+
+% Configuración global para los bloques de código (R)
+\lstset{
+    language=R,
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\small\color{codeorange},
+    keywordstyle=\color{codeblue},
+    stringstyle=\color{codeblue},
+    commentstyle=\color{codegray},
+    frame=none,                 % Sin borde, como en el libro
+    breaklines=true,            % Ajuste de línea automático
+    keepspaces=true,
+    xleftmargin=0.5cm,          % Márgenes para el bloque de fondo
+    xrightmargin=0.5cm,
+    aboveskip=1em,
+    belowskip=1em,
+    % Colorea el símbolo '>' del prompt de R en el color naranja/café
+    literate={>}{{\textcolor{codeorange}{>}}}1,
+    % Ajustes adicionales para que ciertas funciones salgan en azul o naranja según necesites
+    morekeywords={rownames, View, read.csv} 
+}
+
+% Comando personalizado para el código dentro del texto (ej. read.csv())
+\newcommand{\rcode}[1]{\textcolor{codeorange}{\texttt{#1}}}
